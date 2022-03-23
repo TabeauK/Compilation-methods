@@ -1,0 +1,70 @@
+
+// ==========================================================================
+//  GPLEX error listing for lex source file <kompilator.lex>
+// ==========================================================================
+//  Version:  1.2.2
+//  Machine:  DESKTOP-QPDU20S
+//  DateTime: 27/06/2020 15:55:18
+//  UserName: krzys
+// ==========================================================================
+
+
+%using QUT.Gppg;
+%namespace GardensPoint
+
+
+
+IntNumber			(0|[1-9][0-9]+)
+RealNumber		(0\.|[1-9][0-9]+\.)[0-9]+
+Bool		("true"|"false")
+Ident		[A-z](A-z|0-9)+
+PrintErr    "print"("@"|"$"|[a-z0-9])[a-z0-9]*
+
+
+%%
+"program"
+// Error: Expected space here
+// --------------------------
+"if"
+"else"
+// Error: Expected space here
+// --------------------------
+"while"
+"read"
+// Error: Expected space here
+// --------------------------
+"write"
+"return"	{ return (int)Tokens.Return; }
+"int"		{ return (int)Tokens.Int; }
+"double"	{ return (int)Tokens.Double; }
+"bool"		{ }
+
+"="			{ return (int)Tokens.Assign; }
+"||"		{ return (int)Tokens.Or; }
+"&&"		{ return (int)Tokens.And; }
+"|"			{ return (int)Tokens.BitwiseOr; }
+"&"			{ return (int)Tokens.BitwiseAnd; }
+"=="		{ return (int)Tokens.Equals; }
+"!="		{ return (int)Tokens.NotEquals; }
+">"			{ return (int)Tokens.Greater; }
+">="		{ return (int)Tokens.GreaterEqual; }
+"<"			{ return (int)Tokens.Less; }
+"<="		{ return (int)Tokens.LessEqual; }
+"+"			{ return (int)Tokens.Plus; }
+"-"			{ return (int)Tokens.Minus; }
+"*"			{ return (int)Tokens.Multiply; }
+"/"			{ return (int)Tokens.Divide; }
+"!"			{ return (int)Tokens.Not; }
+"~"			{ return (int)Tokens.Negate; }
+"("			{ return (int)Tokens.OpenPar; }
+")"			{ return (int)Tokens.ClosePar; }
+"{"			{ return (int)Tokens.OpenBracket; }
+"}"			{ return (int)Tokens.CloseBracket; }
+
+" "			  { }
+"\t"		  { }
+"\n"		  { }
+{IntNumber}   { yylval.val=yytext; return (int)Tokens.IntNumber; }
+{RealNumber}  { yylval.val=yytext; return (int)Tokens.RealNumber; }
+{Bool}        { yylval.val=yytext; return (int)Tokens.Bool; }// ==========================================================================
+
